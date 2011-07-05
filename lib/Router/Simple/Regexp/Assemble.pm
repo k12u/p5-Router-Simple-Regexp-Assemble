@@ -1,10 +1,10 @@
-package Router::Simple::Assembled;
+package Router::Simple::Regexp::Assemble;
 
 use strict;
 use warnings;
 
 use Regexp::Assemble;
-use Router::Simple::Assembled::Route;
+use Router::Simple::Regexp::Assemble::Route;
 
 use parent qw(Router::Simple);
 use Data::Dumper;
@@ -17,7 +17,7 @@ our $DEFAULT_VALUE = '__ROUTER_SIMPLE_DEFAULT__';
 
 sub connect {
     my $self = shift;
-    my $route = Router::Simple::Assembled::Route->new(@_);
+    my $route = Router::Simple::Regexp::Assemble::Route->new(@_);
     push @{ $self->{routes} }, $route;
     return $self;
 }
@@ -33,10 +33,7 @@ sub _match {
         [$env->{HTTP_HOST}, $DEFAULT_VALUE],
         [$DEFAULT_VALUE,    $DEFAULT_VALUE]
        ) {
-warn $_->[0]. $_->[1];
         next unless defined $self->{ra}{ $_->[0] }{ $_->[1] };
-warn $_->[0]. $_->[1];
-warn $self->{ra}{ $_->[0] }{ $_->[1] };
         my $status =
             do {
                 # notice that `match' comes from Regexp::Assemble.
@@ -44,18 +41,14 @@ warn $self->{ra}{ $_->[0] }{ $_->[1] };
                 $self->{ra}{$_->[0]}{$_->[1]}->match($env->{PATH_INFO})
             };
         next unless defined $status;
-warn $_->[0]. $_->[1];
 
         my $matched_route = $self->{ra}{ $_->[0] }{ $_->[1] }->matched;
-warn "MATCHED:dict.$_->[0].$_->[1].$matched_route";
         my $route = $self->{dict}{ $_->[0] }{ $_->[1] }{$matched_route};
 
         my $matched = {
             action     => $route->{dest}->{action},
             controller => $route->{dest}->{controller},
         };
-        warn Dumper($route);
-        warn Dumper($matched);
         return ($matched, $route);
     }
 
@@ -78,32 +71,27 @@ sub finish {
         next unless($r->{pattern_str} or $r->{pattern_re});
 
         for my $method ( @{ $r->{method} }, $DEFAULT_VALUE ){
-            my $ra = $self->_get_ra($r->{host}, $method);
-            my $str = $r->{pattern_str};
             my $host = $r->{host} || $DEFAULT_VALUE;
+
+            my $ra = $self->_get_ra($host, $method);
+            my $str = $r->{pattern_str};
             if($r->{_regexp_capture}){
-warn $r->{pattern_re};
+#warn $r->{pattern_re};
                 $ra->add($r->{pattern_re});
             }
             else {
-warn qr{^$str$};
+#warn qr{^$str$};
                 $ra->add(qr{^$str$});
             }
             $self->{dict}{ $host }{ $method }{ $r->{pattern_re} } = $r;
-            $self->{ra}{   $host }{ $method } =  $ra;
+#            $self->{ra}{   $host }{ $method } =  $ra;
         }
     }
-use Data::Dumper;
-open my $W, ">>",  "/home/kawamoto/dump.debug";
-print $W Dumper($self->{dict});
-close $W;
 }
 
 sub _get_ra {
     my ($self, $host, $method) = @_;
-    $host   ||= $DEFAULT_VALUE;
-    $method ||= $DEFAULT_VALUE;
-    $self->{ra_cache}{$host}{$method} ||= _gen_ra();
+    $self->{ra}{$host}{$method} ||= _gen_ra();
 }
 
 sub _gen_ra {
@@ -116,7 +104,7 @@ __END__
 
 =head1 NAME
 
-Router::Simple::Assembled - fine-tuned Router::Simple by using Regexp::Assemble
+Router::Simple::Regexp::Assemble - fine-tuned Router::Simple by using Regexp::Assemble
 
 =head1 SYNOPSIS
 

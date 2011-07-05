@@ -1,6 +1,6 @@
 use inc::Module::Install;
-name 'Router-Simple-Assembled';
-all_from 'lib/Router/Simple/Assembled.pm';
+name 'Router-Simple-Regexp-Assemble';
+all_from 'lib/Router/Simple/Regexp/Assemble.pm';
 
 requires 'Router::Simple';
 requires 'Regexp::Assemble';

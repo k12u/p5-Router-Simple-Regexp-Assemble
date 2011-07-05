@@ -1,9 +1,9 @@
 use strict;
 use warnings;
-use Router::Simple::Assembled;
+use Router::Simple::Regexp::Assemble;
 use Test::More;
 
-my $r = Router::Simple::Assembled->new();
+my $r = Router::Simple::Regexp::Assemble->new();
 $r->connect('home', '/' => {controller => 'Root', action => 'show'}, {method => 'GET', host => 'localhost'});
 $r->connect('blog_monthly', '/blog/{year}/{month}', {controller => 'Blog', action => 'monthly'}, {method => 'GET'});
 $r->connect('/blog/{year:\d{1,4}}/{month:\d{2}}/{day:\d\d}', {controller => 'Blog', action => 'daily'}, {method => 'GET'});

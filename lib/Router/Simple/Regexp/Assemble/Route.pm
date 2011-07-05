@@ -1,4 +1,4 @@
-package Router::Simple::Assembled::Route;
+package Router::Simple::Regexp::Assemble::Route;
 
 use strict;
 use warnings;
@@ -84,7 +84,7 @@ __END__
 
 =head1 NAME
 
-Router::Simple::Assembled::Route - route object
+Router::Simple::Regexp::Assemble::Route - route object
 
 =head1 DESCRIPTION
 
@@ -113,5 +113,5 @@ This class provides following attributes.
 =head1 SEE ALSO
 
 L<Router::Simple>
-L<Router::Simple::Assembled>
+L<Router::Simple::Regexp::Assemble>
 

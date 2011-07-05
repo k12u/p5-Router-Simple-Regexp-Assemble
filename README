@@ -1,11 +1,11 @@
-This is Perl module Router::Simple::Assembled.
+This is Perl module Router::Simple::Regexp::Assemble.
 
 INSTALLATION
 
-Router::Simple::Assembled installation is straightforward. If your CPAN shell is set up,
+Router::Simple::Regexp::Assemble installation is straightforward. If your CPAN shell is set up,
 you should just be able to do
 
-    % cpan Router::Simple::Assembled
+    % cpan Router::Simple::Regexp::Assemble
 
 Download it, unpack it, then build it as per the usual:
 
@@ -18,9 +18,9 @@ Then install it:
 
 DOCUMENTATION
 
-Router::Simple::Assembled documentation is available as in POD. So you can do:
+Router::Simple::Regexp::Assemble. is available as in POD. So you can do:
 
-    % perldoc Router::Simple::Assembled
+    % perldoc Router::Simple::Regexp::Assemble.
 
 to read the documentation online with your favorite pager.
 
