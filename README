@@ -1,0 +1,27 @@
+This is Perl module Router::Simple::Assembled.
+
+INSTALLATION
+
+Router::Simple::Assembled installation is straightforward. If your CPAN shell is set up,
+you should just be able to do
+
+    % cpan Router::Simple::Assembled
+
+Download it, unpack it, then build it as per the usual:
+
+    % perl Makefile.PL
+    % make && make test
+
+Then install it:
+
+    % make install
+
+DOCUMENTATION
+
+Router::Simple::Assembled documentation is available as in POD. So you can do:
+
+    % perldoc Router::Simple::Assembled
+
+to read the documentation online with your favorite pager.
+
+KAWAMOTO, Minoru
